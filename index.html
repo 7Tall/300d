@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+  <title>300 giorni con Aletta 🫀</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+
+  <style>
+
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      -webkit-tap-highlight-color:transparent;
+    }
+
+    body{
+      font-family:'Inter',sans-serif;
+
+      background:
+      radial-gradient(circle at top,
+      #2b0d16 0%,
+      #18070d 45%,
+      #090305 100%);
+
+      color:white;
+      overflow:hidden;
+      height:100vh;
+      position:relative;
+    }
+
+    body.beat{
+      animation:screenBeat 0.35s ease;
+    }
+
+    @keyframes screenBeat{
+
+      0%{
+        transform:scale(1);
+      }
+
+      25%{
+        transform:scale(1.015);
+      }
+
+      50%{
+        transform:scale(0.995);
+      }
+
+      100%{
+        transform:scale(1);
+      }
+    }
+
+    .background-heart{
+
+      position:absolute;
+      inset:0;
+
+      display:flex;
+      justify-content:center;
+      align-items:center;
+
+      pointer-events:none;
+
+      opacity:0.07;
+
+      font-size:240px;
+
+      animation:heartBeat 1.1s infinite;
+    }
+
+    @keyframes heartBeat{
+
+      0%{
+        transform:scale(1);
+      }
+
+      14%{
+        transform:scale(1.12);
+      }
+
+      28%{
+        transform:scale(1);
+      }
+
+      42%{
+        transform:scale(1.08);
+      }
+
+      70%{
+        transform:scale(1);
+      }
+    }
+
+    .container{
+
+      position:relative;
+      z-index:2;
+
+      height:100vh;
+
+      display:flex;
+      flex-direction:column;
+
+      justify-content:center;
+      align-items:center;
+
+      padding:24px;
+
+      text-align:center;
+    }
+
+    .top-text{
+
+      font-size:1.5rem;
+
+      opacity:0.85;
+
+      margin-bottom:22px;
+
+      font-weight:800;
+
+      letter-spacing:1px;
+    }
+
+    .heart-main{
+
+      font-size:5.5rem;
+
+      margin-bottom:28px;
+
+      animation:heartBeat 1.1s infinite;
+
+      filter:drop-shadow(0 0 18px rgba(255,50,80,0.4));
+    }
+
+    .counter-widget{
+
+      width:100%;
+      max-width:360px;
+
+      background:rgba(255,255,255,0.08);
+
+      border:1px solid rgba(255,255,255,0.08);
+
+      backdrop-filter:blur(18px);
+
+      border-radius:34px;
+
+      padding:36px 18px;
+
+      margin-bottom:34px;
+
+      box-shadow:
+      0 10px 40px rgba(0,0,0,0.45);
+    }
+
+    .days{
+
+      font-size:6rem;
+
+      font-weight:900;
+
+      line-height:1;
+
+      letter-spacing:-5px;
+    }
+
+    .days-label{
+
+      margin-top:12px;
+
+      opacity:0.7;
+
+      letter-spacing:2px;
+
+      font-size:0.85rem;
+
+      font-weight:700;
+    }
+
+    .pre-button{
+
+      margin-bottom:14px;
+
+      font-size:0.95rem;
+
+      opacity:0.62;
+
+      font-weight:600;
+    }
+
+    button{
+
+      border:none;
+
+      background:
+      linear-gradient(
+      135deg,
+      #ff3d6e,
+      #ff6b81);
+
+      color:white;
+
+      padding:18px 32px;
+
+      border-radius:999px;
+
+      font-size:1rem;
+
+      font-weight:800;
+
+      cursor:pointer;
+
+      box-shadow:
+      0 12px 30px rgba(255,61,110,0.35);
+
+      transition:0.2s;
+    }
+
+    button:active{
+      transform:scale(0.96);
+    }
+
+    .slider{
+
+      position:fixed;
+
+      left:0;
+      bottom:-100%;
+
+      width:100%;
+      height:72vh;
+
+      background:
+      linear-gradient(
+      180deg,
+      rgba(37,15,22,0.98),
+      rgba(15,5,8,1));
+
+      border-top-left-radius:34px;
+      border-top-right-radius:34px;
+
+      padding:34px 28px;
+
+      transition:0.6s ease;
+
+      z-index:20;
+
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
+
+      box-shadow:
+      0 -10px 40px rgba(0,0,0,0.5);
+    }
+
+    .slider.active{
+      bottom:0;
+    }
+
+    .handle{
+      width:70px;
+      height:6px;
+      background:rgba(255,255,255,0.25);
+      border-radius:999px;
+      margin:0 auto 20px auto;
+    }
+
+    .slide-content{
+
+      flex:1;
+
+      display:flex;
+      justify-content:center;
+      align-items:center;
+
+      text-align:center;
+
+      font-size:1.25rem;
+
+      line-height:1.9;
+
+      font-weight:600;
+
+      opacity:0;
+
+      transform:translateY(10px);
+
+      transition:0.4s;
+
+      white-space:pre-line;
+    }
+
+    .slide-content.show{
+      opacity:1;
+      transform:translateY(0px);
+    }
+
+    .bottom-zone{
+      display:flex;
+      justify-content:center;
+      flex-direction:column;
+      align-items:center;
+      gap:20px;
+    }
+
+    .dots{
+      display:flex;
+      gap:8px;
+    }
+
+    .dot{
+      width:8px;
+      height:8px;
+      border-radius:50%;
+      background:rgba(255,255,255,0.25);
+      transition:0.2s;
+    }
+
+    .dot.active{
+      background:#ff5d84;
+      transform:scale(1.3);
+    }
+
+    .close-btn{
+
+      background:rgba(255,255,255,0.08);
+
+      border:none;
+
+      color:white;
+
+      padding:14px 24px;
+
+      border-radius:18px;
+
+      font-weight:700;
+
+      cursor:pointer;
+    }
+
+    .footer-heart{
+      position:absolute;
+      bottom:18px;
+      width:100%;
+      text-align:center;
+      opacity:0.4;
+      font-size:1rem;
+      letter-spacing:1px;
+    }
+
+    .explosion-heart{
+
+      position:absolute;
+
+      font-size:28px;
+
+      pointer-events:none;
+
+      z-index:999;
+
+      animation:explode 3s forwards ease-out;
+    }
+
+    @keyframes explode{
+
+      0%{
+        transform:
+        translate(0,0)
+        scale(0.4);
+
+        opacity:1;
+      }
+
+      100%{
+        transform:
+        translate(var(--x), var(--y))
+        scale(1.8);
+
+        opacity:0;
+      }
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <div class="background-heart">
+    🫀
+  </div>
+
+  <div class="container">
+
+    <div class="top-text">
+      300 giorni con Aletta
+    </div>
+
+    <div class="heart-main">
+      🫀
+    </div>
+
+    <div class="counter-widget">
+
+      <div class="days" id="daysCounter">
+        0
+      </div>
+
+      <div class="days-label">
+        GIORNI INSIEME
+      </div>
+
+    </div>
+
+    <div class="pre-button">
+      premi per rendere strana la situazione
+    </div>
+
+    <button onclick="openSlider()">
+      shufi e leggi
+    </button>
+
+  </div>
+
+  <div class="slider" id="slider">
+
+    <div class="handle"></div>
+
+    <div class="slide-content show" id="slideText"></div>
+
+    <div class="bottom-zone">
+
+      <div class="dots" id="dots"></div>
+
+      <button class="close-btn" onclick="closeSlider()">
+        torna indietro
+      </button>
+
+    </div>
+
+  </div>
+
+  <div class="footer-heart">
+    🫀
+  </div>
+
+  <script>
+
+    // CONTATORE
+
+    let count = 0;
+
+    const counter =
+      document.getElementById('daysCounter');
+
+    let counting = true;
+
+    function triggerBeat(){
+
+      document.body.classList.remove('beat');
+
+      void document.body.offsetWidth;
+
+      document.body.classList.add('beat');
+
+      if(navigator.vibrate){
+        navigator.vibrate(35);
+      }
+    }
+
+    function explodeHearts(){
+
+      for(let i = 0; i < 45; i++){
+
+        const heart =
+          document.createElement('div');
+
+        heart.classList.add('explosion-heart');
+
+        heart.innerHTML = '🫀';
+
+        heart.style.left =
+          window.innerWidth / 2 + 'px';
+
+        heart.style.top =
+          window.innerHeight / 2 + 'px';
+
+        heart.style.setProperty(
+          '--x',
+          (Math.random() * 700 - 350) + 'px'
+        );
+
+        heart.style.setProperty(
+          '--y',
+          (Math.random() * 700 - 350) + 'px'
+        );
+
+        document.body.appendChild(heart);
+
+        setTimeout(() => {
+          heart.remove();
+        },3000);
+      }
+
+      triggerBeat();
+    }
+
+    setInterval(() => {
+
+      if(!counting) return;
+
+      counter.innerText = count;
+
+      if(count >= 300){
+
+        counting = false;
+
+        explodeHearts();
+
+        setTimeout(() => {
+
+          count = 0;
+          counting = true;
+
+        },3000);
+
+        return;
+      }
+
+      count++;
+
+    },18);
+
+
+
+    // SLIDES
+
+    const slides = [
+
+`ci penso spesso a quella panchina al parco,
+non tanto per il posto,
+ma per il gesto.`,
+
+`quando ti ho chiesto il palmo della mano,
+non sapevo spiegare bene perché lo stessi facendo,
+ma sentivo che dovevo farlo.`,
+
+`tu mi hai ascoltato
+senza fretta,
+senza giudicare.`,
+
+`mi sono sentito visto,
+rispettato.`,
+
+`a volte penso che l’amore inizi proprio così,
+non con le dichiarazioni,
+ma con qualcuno che ti guarda mentre mostri una parte delicata di te
+e decide di restare.`
+
+    ];
+
+    let currentSlide = 0;
+
+    const slideText =
+      document.getElementById('slideText');
+
+    const dotsContainer =
+      document.getElementById('dots');
+
+
+    slides.forEach((_, index) => {
+
+      const dot = document.createElement('div');
+
+      dot.classList.add('dot');
+
+      if(index === 0){
+        dot.classList.add('active');
+      }
+
+      dotsContainer.appendChild(dot);
+
+    });
+
+
+    function updateSlide(){
+
+      slideText.classList.remove('show');
+
+      setTimeout(() => {
+
+        slideText.innerText =
+          slides[currentSlide];
+
+        slideText.classList.add('show');
+
+        document.querySelectorAll('.dot')
+        .forEach((dot,index) => {
+
+          dot.classList.toggle(
+            'active',
+            index === currentSlide
+          );
+
+        });
+
+        triggerBeat();
+
+      },200);
+    }
+
+    updateSlide();
+
+
+    function nextSlide(){
+
+      if(currentSlide < slides.length - 1){
+
+        currentSlide++;
+
+        updateSlide();
+      }
+    }
+
+
+    function prevSlide(){
+
+      if(currentSlide > 0){
+
+        currentSlide--;
+
+        updateSlide();
+      }
+    }
+
+
+    function openSlider(){
+
+      document
+      .getElementById('slider')
+      .classList.add('active');
+
+      triggerBeat();
+    }
+
+
+    function closeSlider(){
+
+      document
+      .getElementById('slider')
+      .classList.remove('active');
+    }
+
+
+
+    // SWIPE MOBILE
+
+    let startX = 0;
+    let startY = 0;
+
+    const slider =
+      document.getElementById('slider');
+
+    slider.addEventListener('touchstart', e => {
+
+      startX = e.touches[0].clientX;
+      startY = e.touches[0].clientY;
+
+    });
+
+    slider.addEventListener('touchend', e => {
+
+      let endX =
+        e.changedTouches[0].clientX;
+
+      let endY =
+        e.changedTouches[0].clientY;
+
+      let diffX = startX - endX;
+      let diffY = startY - endY;
+
+      // swipe laterale
+
+      if(diffX > 50){
+        nextSlide();
+      }
+
+      if(diffX < -50){
+        prevSlide();
+      }
+
+      // swipe giù per chiudere
+
+      if(diffY < -80){
+        closeSlider();
+      }
+
+    });
+
+  </script>
+
+</body>
+</html>
