@@ -1,549 +1,343 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-
-  <title>300 giorni con Aletta 🫀</title>
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
-
-  <style>
-
-    *{
-      margin:0;
-      padding:0;
-      box-sizing:border-box;
-      -webkit-tap-highlight-color:transparent;
-    }
-
-    body{
-      font-family:'Inter',sans-serif;
-
-      background:
-      radial-gradient(circle at top,
-      #2b0d16 0%,
-      #18070d 45%,
-      #090305 100%);
-
-      color:white;
-      overflow:hidden;
-      height:100vh;
-      position:relative;
-    }
-
-    body.beat{
-      animation:screenBeat 0.35s ease;
-    }
-
-    @keyframes screenBeat{
-
-      0%{
-        transform:scale(1);
-      }
-
-      25%{
-        transform:scale(1.015);
-      }
-
-      50%{
-        transform:scale(0.995);
-      }
-
-      100%{
-        transform:scale(1);
-      }
-    }
-
-    .background-heart{
-
-      position:absolute;
-      inset:0;
-
-      display:flex;
-      justify-content:center;
-      align-items:center;
-
-      pointer-events:none;
-
-      opacity:0.07;
-
-      font-size:240px;
-
-      animation:heartBeat 1.1s infinite;
-    }
-
-    @keyframes heartBeat{
-
-      0%{
-        transform:scale(1);
-      }
-
-      14%{
-        transform:scale(1.12);
-      }
-
-      28%{
-        transform:scale(1);
-      }
-
-      42%{
-        transform:scale(1.08);
-      }
-
-      70%{
-        transform:scale(1);
-      }
-    }
-
-    .container{
-
-      position:relative;
-      z-index:2;
-
-      height:100vh;
-
-      display:flex;
-      flex-direction:column;
-
-      justify-content:center;
-      align-items:center;
-
-      padding:24px;
-
-      text-align:center;
-    }
-
-    .top-text{
-
-      font-size:1.5rem;
-
-      opacity:0.85;
-
-      margin-bottom:22px;
-
-      font-weight:800;
-
-      letter-spacing:1px;
-    }
-
-    .heart-main{
-
-      font-size:5.5rem;
-
-      margin-bottom:28px;
-
-      animation:heartBeat 1.1s infinite;
-
-      filter:drop-shadow(0 0 18px rgba(255,50,80,0.4));
-    }
-
-    .counter-widget{
-
-      width:100%;
-      max-width:360px;
-
-      background:rgba(255,255,255,0.08);
-
-      border:1px solid rgba(255,255,255,0.08);
-
-      backdrop-filter:blur(18px);
-
-      border-radius:34px;
-
-      padding:36px 18px;
-
-      margin-bottom:34px;
-
-      box-shadow:
-      0 10px 40px rgba(0,0,0,0.45);
-    }
-
-    .days{
-
-      font-size:6rem;
-
-      font-weight:900;
-
-      line-height:1;
-
-      letter-spacing:-5px;
-    }
-
-    .days-label{
-
-      margin-top:12px;
-
-      opacity:0.7;
-
-      letter-spacing:2px;
-
-      font-size:0.85rem;
-
-      font-weight:700;
-    }
-
-    .pre-button{
-
-      margin-bottom:14px;
-
-      font-size:0.95rem;
-
-      opacity:0.62;
-
-      font-weight:600;
-    }
-
-    button{
-
-      border:none;
-
-      background:
-      linear-gradient(
-      135deg,
-      #ff3d6e,
-      #ff6b81);
-
-      color:white;
-
-      padding:18px 32px;
-
-      border-radius:999px;
-
-      font-size:1rem;
-
-      font-weight:800;
-
-      cursor:pointer;
-
-      box-shadow:
-      0 12px 30px rgba(255,61,110,0.35);
-
-      transition:0.2s;
-    }
-
-    button:active{
-      transform:scale(0.96);
-    }
-
-    .slider{
-
-      position:fixed;
-
-      left:0;
-      bottom:-100%;
-
-      width:100%;
-      height:72vh;
-
-      background:
-      linear-gradient(
-      180deg,
-      rgba(37,15,22,0.98),
-      rgba(15,5,8,1));
-
-      border-top-left-radius:34px;
-      border-top-right-radius:34px;
-
-      padding:34px 28px;
-
-      transition:0.6s ease;
-
-      z-index:20;
-
-      display:flex;
-      flex-direction:column;
-      justify-content:space-between;
-
-      box-shadow:
-      0 -10px 40px rgba(0,0,0,0.5);
-    }
-
-    .slider.active{
-      bottom:0;
-    }
-
-    .handle{
-      width:70px;
-      height:6px;
-      background:rgba(255,255,255,0.25);
-      border-radius:999px;
-      margin:0 auto 20px auto;
-    }
-
-    .slide-content{
-
-      flex:1;
-
-      display:flex;
-      justify-content:center;
-      align-items:center;
-
-      text-align:center;
-
-      font-size:1.25rem;
-
-      line-height:1.9;
-
-      font-weight:600;
-
-      opacity:0;
-
-      transform:translateY(10px);
-
-      transition:0.4s;
-
-      white-space:pre-line;
-    }
-
-    .slide-content.show{
-      opacity:1;
-      transform:translateY(0px);
-    }
-
-    .bottom-zone{
-      display:flex;
-      justify-content:center;
-      flex-direction:column;
-      align-items:center;
-      gap:20px;
-    }
-
-    .dots{
-      display:flex;
-      gap:8px;
-    }
-
-    .dot{
-      width:8px;
-      height:8px;
-      border-radius:50%;
-      background:rgba(255,255,255,0.25);
-      transition:0.2s;
-    }
-
-    .dot.active{
-      background:#ff5d84;
-      transform:scale(1.3);
-    }
-
-    .close-btn{
-
-      background:rgba(255,255,255,0.08);
-
-      border:none;
-
-      color:white;
-
-      padding:14px 24px;
-
-      border-radius:18px;
-
-      font-weight:700;
-
-      cursor:pointer;
-    }
-
-    .footer-heart{
-      position:absolute;
-      bottom:18px;
-      width:100%;
-      text-align:center;
-      opacity:0.4;
-      font-size:1rem;
-      letter-spacing:1px;
-    }
-
-    .explosion-heart{
-
-      position:absolute;
-
-      font-size:28px;
-
-      pointer-events:none;
-
-      z-index:999;
-
-      animation:explode 3s forwards ease-out;
-    }
-
-    @keyframes explode{
-
-      0%{
-        transform:
-        translate(0,0)
-        scale(0.4);
-
-        opacity:1;
-      }
-
-      100%{
-        transform:
-        translate(var(--x), var(--y))
-        scale(1.8);
-
-        opacity:0;
-      }
-    }
-
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+<title>300 giorni con Aletta 🫀</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  -webkit-tap-highlight-color:transparent;
+}
+
+body{
+  font-family:'Inter',sans-serif;
+  background: radial-gradient(circle at top,#2b0d16 0%,#18070d 45%,#090305 100%);
+  color:white;
+  overflow:hidden;
+  height:100vh;
+  position:relative;
+
+  transform: translateZ(0);
+  will-change: transform;
+}
+
+body.beat{
+  animation:screenBeat 0.35s ease;
+}
+
+@keyframes screenBeat{
+  0%{transform:scale(1);}
+  25%{transform:scale(1.015);}
+  50%{transform:scale(0.995);}
+  100%{transform:scale(1);}
+}
+
+.background-heart{
+  position:absolute;
+  inset:0;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  pointer-events:none;
+  opacity:0.07;
+  font-size:240px;
+  animation:heartBeat 1.1s infinite;
+}
+
+@keyframes heartBeat{
+  0%{transform:scale(1);}
+  14%{transform:scale(1.12);}
+  28%{transform:scale(1);}
+  42%{transform:scale(1.08);}
+  70%{transform:scale(1);}
+}
+
+.container{
+  position:relative;
+  z-index:2;
+  height:100vh;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  padding:24px;
+  text-align:center;
+}
+
+.top-text{
+  font-size:1.5rem;
+  font-weight:800;
+  margin-bottom:22px;
+}
+
+.heart-main{
+  font-size:5.5rem;
+  margin-bottom:28px;
+  animation:heartBeat 1.1s infinite;
+  filter:drop-shadow(0 0 18px rgba(255,50,80,0.4));
+}
+
+.counter-widget{
+  width:100%;
+  max-width:360px;
+  background:rgba(255,255,255,0.08);
+  border:1px solid rgba(255,255,255,0.08);
+  backdrop-filter:blur(18px);
+  border-radius:34px;
+  padding:36px 18px;
+  margin-bottom:34px;
+}
+
+.days{
+  font-size:6rem;
+  font-weight:900;
+  letter-spacing:-5px;
+}
+
+.days-label{
+  margin-top:12px;
+  opacity:0.7;
+  font-size:0.85rem;
+  letter-spacing:2px;
+}
+
+.pre-button{
+  margin-bottom:14px;
+  opacity:0.62;
+  font-size:0.95rem;
+}
+
+button{
+  border:none;
+  background:linear-gradient(135deg,#ff3d6e,#ff6b81);
+  color:white;
+  padding:18px 32px;
+  border-radius:999px;
+  font-size:1rem;
+  font-weight:800;
+  cursor:pointer;
+}
+
+.slider{
+  position:fixed;
+  left:0;
+  bottom:-100%;
+  width:100%;
+  height:72vh;
+  background:linear-gradient(180deg,#250f16f8,#0f0508ff);
+  border-top-left-radius:34px;
+  border-top-right-radius:34px;
+  padding:34px 28px;
+  transition:0.6s ease;
+  z-index:20;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+
+  transform: translateZ(0);
+  will-change: transform;
+}
+
+.slider.active{
+  bottom:0;
+}
+
+.handle{
+  width:70px;
+  height:6px;
+  background:rgba(255,255,255,0.25);
+  border-radius:999px;
+  margin:0 auto 20px auto;
+}
+
+.slide-content{
+  flex:1;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  font-size:1.25rem;
+  font-weight:600;
+  line-height:1.9;
+  white-space:pre-line;
+  opacity:0;
+  transform:translateY(10px);
+  transition:0.4s;
+}
+
+.slide-content.show{
+  opacity:1;
+  transform:translateY(0);
+}
+
+.bottom-zone{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:20px;
+}
+
+.dots{
+  display:flex;
+  gap:8px;
+}
+
+.dot{
+  width:8px;
+  height:8px;
+  border-radius:50%;
+  background:rgba(255,255,255,0.25);
+}
+
+.dot.active{
+  background:#ff5d84;
+  transform:scale(1.3);
+}
+
+.close-btn{
+  background:rgba(255,255,255,0.08);
+  border:none;
+  color:white;
+  padding:14px 24px;
+  border-radius:18px;
+  font-weight:700;
+}
+
+.explosion-heart{
+  position:fixed;
+  font-size:28px;
+  pointer-events:none;
+  z-index:999;
+  animation:explode 3s ease-out forwards;
+}
+
+@keyframes explode{
+  0%{
+    transform:translate(0,0) scale(0.4);
+    opacity:1;
+  }
+  100%{
+    transform:translate(var(--x), var(--y)) scale(1.8);
+    opacity:0;
+  }
+}
+
+</style>
 </head>
 
 <body>
 
-  <div class="background-heart">
-    🫀
-  </div>
+<div class="background-heart">🫀</div>
 
-  <div class="container">
+<div class="container">
 
-    <div class="top-text">
-      300 giorni con Aletta
-    </div>
+<div class="top-text">300 giorni con Aletta</div>
 
-    <div class="heart-main">
-      🫀
-    </div>
+<div class="heart-main">🫀</div>
 
-    <div class="counter-widget">
+<div class="counter-widget">
+<div class="days" id="daysCounter">0</div>
+<div class="days-label">GIORNI INSIEME</div>
+</div>
 
-      <div class="days" id="daysCounter">
-        0
-      </div>
+<div class="pre-button">premi per rendere strana la situazione</div>
 
-      <div class="days-label">
-        GIORNI INSIEME
-      </div>
+<button onclick="openSlider()">shufi e leggi</button>
 
-    </div>
+</div>
 
-    <div class="pre-button">
-      premi per rendere strana la situazione
-    </div>
+<div class="slider" id="slider">
 
-    <button onclick="openSlider()">
-      shufi e leggi
-    </button>
+<div class="handle"></div>
 
-  </div>
+<div class="slide-content show" id="slideText"></div>
 
-  <div class="slider" id="slider">
+<div class="bottom-zone">
+<div class="dots" id="dots"></div>
+<button class="close-btn" onclick="closeSlider()">torna indietro</button>
+</div>
 
-    <div class="handle"></div>
+</div>
 
-    <div class="slide-content show" id="slideText"></div>
+<script>
 
-    <div class="bottom-zone">
+let count = 0;
+let counting = true;
 
-      <div class="dots" id="dots"></div>
+const counter = document.getElementById('daysCounter');
+const slider = document.getElementById('slider');
 
-      <button class="close-btn" onclick="closeSlider()">
-        torna indietro
-      </button>
+function triggerBeat(){
+  document.body.classList.remove('beat');
+  void document.body.offsetWidth;
+  document.body.classList.add('beat');
+  if(navigator.vibrate) navigator.vibrate(35);
+}
 
-    </div>
+function explodeHearts(){
 
-  </div>
+  slider.style.transform = "translateZ(0)";
 
-  <div class="footer-heart">
-    🫀
-  </div>
+  for(let i=0;i<45;i++){
 
-  <script>
+    const heart = document.createElement('div');
+    heart.classList.add('explosion-heart');
+    heart.innerHTML = '🫀';
+    heart.style.left = window.innerWidth/2 + 'px';
+    heart.style.top = window.innerHeight/2 + 'px';
 
-    // CONTATORE
+    heart.style.setProperty('--x',(Math.random()*700-350)+'px');
+    heart.style.setProperty('--y',(Math.random()*700-350)+'px');
 
-    let count = 0;
+    document.body.appendChild(heart);
 
-    const counter =
-      document.getElementById('daysCounter');
+    setTimeout(()=>heart.remove(),3000);
+  }
 
-    let counting = true;
+  triggerBeat();
 
-    function triggerBeat(){
+  setTimeout(()=>{
+    slider.style.transform = "";
+  },3000);
+}
 
-      document.body.classList.remove('beat');
+setInterval(()=>{
 
-      void document.body.offsetWidth;
+  if(!counting) return;
 
-      document.body.classList.add('beat');
+  counter.innerText = count;
 
-      if(navigator.vibrate){
-        navigator.vibrate(35);
-      }
-    }
+  if(count >= 300){
 
-    function explodeHearts(){
+    counting = false;
+    explodeHearts();
 
-      for(let i = 0; i < 45; i++){
+    setTimeout(()=>{
+      count = 0;
+      counting = true;
+    },3000);
 
-        const heart =
-          document.createElement('div');
+    return;
+  }
 
-        heart.classList.add('explosion-heart');
+  count++;
 
-        heart.innerHTML = '🫀';
-
-        heart.style.left =
-          window.innerWidth / 2 + 'px';
-
-        heart.style.top =
-          window.innerHeight / 2 + 'px';
-
-        heart.style.setProperty(
-          '--x',
-          (Math.random() * 700 - 350) + 'px'
-        );
-
-        heart.style.setProperty(
-          '--y',
-          (Math.random() * 700 - 350) + 'px'
-        );
-
-        document.body.appendChild(heart);
-
-        setTimeout(() => {
-          heart.remove();
-        },3000);
-      }
-
-      triggerBeat();
-    }
-
-    setInterval(() => {
-
-      if(!counting) return;
-
-      counter.innerText = count;
-
-      if(count >= 300){
-
-        counting = false;
-
-        explodeHearts();
-
-        setTimeout(() => {
-
-          count = 0;
-          counting = true;
-
-        },3000);
-
-        return;
-      }
-
-      count++;
-
-    },18);
+},18);
 
 
+// SLIDES
 
-    // SLIDES
-
-    const slides = [
+const slides = [
 
 `quando mi hai detto che ti piacevo più di un amico, 
 ho sentito il cuore fermarsi per un attimo.`,
@@ -551,7 +345,7 @@ ho sentito il cuore fermarsi per un attimo.`,
 `non perché non lo volessi, ma perché avevo paura, 
 paura di non essere abbastanza, paura di rovinare qualcosa di bello.`,
 
-`ricordo i tuoi occhi, la tensione, il coraggio.`,
+'ricordo i tuoi occhi, la tensione, il coraggio.',
 
 `io non so se te l’ho mai detto davvero, 
 ma quel momento lo porto addosso come una cicatrice bella.`,
@@ -563,147 +357,84 @@ non con le dichiarazioni,
 ma con qualcuno che ti guarda mentre mostri una parte delicata di te
 e decide di restare.`
 
-    ];
+];
 
-    let currentSlide = 0;
+let current = 0;
 
-    const slideText =
-      document.getElementById('slideText');
+const slideText = document.getElementById('slideText');
+const dots = document.getElementById('dots');
 
-    const dotsContainer =
-      document.getElementById('dots');
+slides.forEach((_,i)=>{
+  const d = document.createElement('div');
+  d.classList.add('dot');
+  if(i===0) d.classList.add('active');
+  dots.appendChild(d);
+});
 
+function updateSlide(){
 
-    slides.forEach((_, index) => {
+  slideText.classList.remove('show');
 
-      const dot = document.createElement('div');
+  setTimeout(()=>{
 
-      dot.classList.add('dot');
+    slideText.innerText = slides[current];
+    slideText.classList.add('show');
 
-      if(index === 0){
-        dot.classList.add('active');
-      }
-
-      dotsContainer.appendChild(dot);
-
+    document.querySelectorAll('.dot')
+    .forEach((d,i)=>{
+      d.classList.toggle('active', i===current);
     });
 
+    triggerBeat();
 
-    function updateSlide(){
+  },200);
+}
 
-      slideText.classList.remove('show');
+updateSlide();
 
-      setTimeout(() => {
-
-        slideText.innerText =
-          slides[currentSlide];
-
-        slideText.classList.add('show');
-
-        document.querySelectorAll('.dot')
-        .forEach((dot,index) => {
-
-          dot.classList.toggle(
-            'active',
-            index === currentSlide
-          );
-
-        });
-
-        triggerBeat();
-
-      },200);
-    }
-
+function nextSlide(){
+  if(current < slides.length-1){
+    current++;
     updateSlide();
+  }
+}
+
+function prevSlide(){
+  if(current > 0){
+    current--;
+    updateSlide();
+  }
+}
 
 
-    function nextSlide(){
+// SWIPE
 
-      if(currentSlide < slides.length - 1){
+let startX=0,startY=0;
 
-        currentSlide++;
+slider.addEventListener('touchstart',e=>{
+  startX = e.touches[0].clientX;
+  startY = e.touches[0].clientY;
+});
 
-        updateSlide();
-      }
-    }
+slider.addEventListener('touchend',e=>{
+  let dx = startX - e.changedTouches[0].clientX;
+  let dy = startY - e.changedTouches[0].clientY;
 
+  if(dx > 50) nextSlide();
+  if(dx < -50) prevSlide();
+  if(dy < -80) closeSlider();
+});
 
-    function prevSlide(){
+function openSlider(){
+  slider.classList.add('active');
+  triggerBeat();
+}
 
-      if(currentSlide > 0){
+function closeSlider(){
+  slider.classList.remove('active');
+}
 
-        currentSlide--;
-
-        updateSlide();
-      }
-    }
-
-
-    function openSlider(){
-
-      document
-      .getElementById('slider')
-      .classList.add('active');
-
-      triggerBeat();
-    }
-
-
-    function closeSlider(){
-
-      document
-      .getElementById('slider')
-      .classList.remove('active');
-    }
-
-
-
-    // SWIPE MOBILE
-
-    let startX = 0;
-    let startY = 0;
-
-    const slider =
-      document.getElementById('slider');
-
-    slider.addEventListener('touchstart', e => {
-
-      startX = e.touches[0].clientX;
-      startY = e.touches[0].clientY;
-
-    });
-
-    slider.addEventListener('touchend', e => {
-
-      let endX =
-        e.changedTouches[0].clientX;
-
-      let endY =
-        e.changedTouches[0].clientY;
-
-      let diffX = startX - endX;
-      let diffY = startY - endY;
-
-      // swipe laterale
-
-      if(diffX > 50){
-        nextSlide();
-      }
-
-      if(diffX < -50){
-        prevSlide();
-      }
-
-      // swipe giù per chiudere
-
-      if(diffY < -80){
-        closeSlider();
-      }
-
-    });
-
-  </script>
+</script>
 
 </body>
 </html>
